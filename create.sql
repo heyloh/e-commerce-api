@@ -1,9 +1,5 @@
 -- psql -d YOUR_DATABASE -f create.sql
 
-drop table cccat9.product;
-drop table cccat9.coupon;
-drop schema cccat9;
-
 create schema cccat9;
 
 create table cccat9.product (
