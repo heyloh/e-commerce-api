@@ -1,9 +1,13 @@
 import CouponData from "./CouponData";
 import ProductData from "./ProductData";
 import { validate } from "./CpfValidator";
+import CurrencyGateway from "./CurrencyGateway";
 
 export default class Checkout {
-  constructor(readonly productData: ProductData, readonly couponData: CouponData) {}
+  constructor(
+    readonly productData: ProductData,
+    readonly couponData: CouponData
+  ) {}
 
   async execute(input: Input) {
     const { cpf, items } = input;
@@ -14,6 +18,7 @@ export default class Checkout {
     let total = 0;
     let freight = 0;
     const productIds: number[] = [];
+    const currencies: any = await new CurrencyGateway().getCurrencies();
     for (const item of items) {
       if (productIds.some((productId) => productId === item.productId)) {
         throw new Error("Product cannot be repeated");
@@ -32,7 +37,10 @@ export default class Checkout {
       if (product.weight <= 0) {
         throw new Error("Product weight cannot be negative");
       }
-      total += parseFloat(product.price) * item.quantity;
+      total +=
+        parseFloat(product.price) *
+        (currencies[product.currency] || 1) *
+        item.quantity;
       const volume =
         (product.height / 100) * (product.width / 100) * (product.length / 100);
       const density = parseFloat(product.weight) / volume;
