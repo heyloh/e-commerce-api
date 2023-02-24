@@ -2,11 +2,13 @@ import CouponData from "./CouponData";
 import ProductData from "./ProductData";
 import { validate } from "./CpfValidator";
 import CurrencyGateway from "./CurrencyGateway";
+import RandomCurrencyGateway from "./RandomCurrencyGateway";
 
 export default class Checkout {
   constructor(
     readonly productData: ProductData,
-    readonly couponData: CouponData
+    readonly couponData: CouponData,
+    readonly currencyGateway: CurrencyGateway = new RandomCurrencyGateway()
   ) {}
 
   async execute(input: Input) {
@@ -18,7 +20,7 @@ export default class Checkout {
     let total = 0;
     let freight = 0;
     const productIds: number[] = [];
-    const currencies: any = await new CurrencyGateway().getCurrencies();
+    const currencies: any = await this.currencyGateway.getCurrencies();
     for (const item of items) {
       if (productIds.some((productId) => productId === item.productId)) {
         throw new Error("Product cannot be repeated");

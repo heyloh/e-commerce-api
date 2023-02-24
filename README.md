@@ -25,3 +25,7 @@ Utilize a fórmula abaixo para calcular o valor do frete
 ### Fórmula de Cálculo do Frete
 
 Valor do Frete = distância (km) * volume (m3) * (densidade/100)
+
+## To-do
+
+-[ ] Implementar TypeORM ou Prisma
