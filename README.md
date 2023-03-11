@@ -26,6 +26,17 @@ Utilize a fórmula abaixo para calcular o valor do frete
 
 Valor do Frete = distância (km) * volume (m3) * (densidade/100)
 
+## Parte 3
+
+1. Deve gerar o código do pedido
+2. Deve fazer um pedido, salvando no banco de dados
+3. Deve simular o frete, retornando o frete previsto para o pedido
+4. Deve validar o cupom de desconto, indicando em um boolean se o cupom é válido
+
+### Considere
+
+O código do pedido é formado por AAAAPPPPPPPP onde AAAA representa o ano e o PPPPPPPP representa um sequencial do pedido.
+
 ## To-do
 
 -[ ] Implementar TypeORM ou Prisma

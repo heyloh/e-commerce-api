@@ -3,11 +3,13 @@ import ProductData from "./ProductData";
 import { validate } from "./CpfValidator";
 import CurrencyGateway from "./CurrencyGateway";
 import RandomCurrencyGateway from "./RandomCurrencyGateway";
+import OrderData from "./OrderData";
 
 export default class Checkout {
   constructor(
     readonly productData: ProductData,
     readonly couponData: CouponData,
+    readonly orderData: OrderData,
     readonly currencyGateway: CurrencyGateway = new RandomCurrencyGateway()
   ) {}
 
@@ -57,7 +59,15 @@ export default class Checkout {
       }
     }
     total += freight;
-    return { total };
+    await this.orderData.save({ cpf: input.cpf, total });
+    const today = new Date();
+    const year = today.getFullYear();
+    const sequence = await this.orderData.count();
+    const code = `${year}${new String(sequence + 1).padStart(8, "0")}`;
+    return {
+      code,
+      total,
+    };
   }
 }
 

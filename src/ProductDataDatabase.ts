@@ -10,7 +10,7 @@ export default class ProductDataDatabase implements ProductData {
       "select * from cccat9.product where product_id = $1",
       [productId]
     );
-    connection.$pool.end();
+    await connection.$pool.end();
     return product;
   }
 }

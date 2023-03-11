@@ -1,5 +1,6 @@
 import Checkout from "./Checkout";
 import CouponDataDatabase from "./CouponDataDatabase";
+import OrderDataDatabase from "./OrderDataDatabase";
 import ProductDataDatabase from "./ProductDataDatabase";
 
 const input: any = {
@@ -21,7 +22,8 @@ process.stdin.on('data', async (chunk) => {
     try {
       const productData = new ProductDataDatabase();
       const couponData = new CouponDataDatabase();
-      const checkout = new Checkout(productData, couponData);
+      const orderData = new OrderDataDatabase();
+      const checkout = new Checkout(productData, couponData, orderData);
       const output = await checkout.execute(input);
       console.log(output);
     } catch (error: any) {

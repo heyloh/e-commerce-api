@@ -10,7 +10,7 @@ export default class CouponDataDatabase implements CouponData {
       "select * from cccat9.coupon where code = $1",
       [code]
     );
-    connection.$pool.end();
+    await connection.$pool.end();
     return coupon;
   }
 }
