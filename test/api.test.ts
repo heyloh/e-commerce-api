@@ -77,7 +77,7 @@ test("Não deve fazer pedido com a quantidade de um item negativa", async () => 
   const response = await axios.post("http://localhost:3000/checkout", input);
   expect(response.status).toBe(422);
   const output = response.data;
-  expect(output.message).toBe("Product quantity cannot be negative");
+  expect(output.message).toBe("Item quantity cannot be negative");
 });
 
 test("Não deve fazer pedido se o mesmo item for informado mais de uma vez", async () => {

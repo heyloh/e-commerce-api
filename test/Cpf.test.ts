@@ -1,4 +1,4 @@
-import { validate } from "../src/CpfValidator";
+import Cpf from "../src/domain/entities/Cpf";
 
 const validCpfs = [
   "987.654.321-00",
@@ -7,9 +7,9 @@ const validCpfs = [
   "144.796.170-60",
 ];
 
-test.each(validCpfs)("Deve testar CPF válido: %s", (cpf: string) => {
-  const isValid = validate(cpf);
-  expect(isValid).toBeTruthy();
+test.each(validCpfs)("Deve testar CPF válido: %s", (value: string) => {
+  const cpf = new Cpf(value);
+  expect(cpf.getValue()).toBe(value);
 });
 
 const invalidCpfs = [
@@ -30,21 +30,9 @@ const invalidCpfs = [
 ];
 
 test.each(invalidCpfs)("Deve testar CPF inválido: %s", (cpf: string) => {
-  const isValid = validate(cpf);
-  expect(isValid).toBeFalsy();
-});
-
-test("Deve testar CPF undefined", () => {
-  const isValid = validate(undefined);
-  expect(isValid).toBeFalsy();
-});
-
-test("Deve testar CPF nulo", () => {
-  const isValid = validate(null);
-  expect(isValid).toBeFalsy();
+  expect(() => new Cpf(cpf)).toThrow("Invalid CPF");
 });
 
 test("Deve testar CPF com tamanho errado", () => {
-  const isValid = validate("123");
-  expect(isValid).toBeFalsy();
+  expect(() => new Cpf("123")).toThrow("Invalid CPF");
 });

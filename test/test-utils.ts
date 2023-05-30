@@ -1,6 +1,6 @@
-import CouponData from "../src/CouponData";
-import OrderData from "../src/OrderData";
-import ProductData from "../src/ProductData";
+import CouponData from "../src/domain/data/CouponData";
+import OrderData from "../src/domain/data/OrderData";
+import ProductData from "../src/domain/data/ProductData";
 
 export const setup = (hasCurrencies: boolean) => {
   const couponData: CouponData = {
@@ -25,7 +25,7 @@ export const setup = (hasCurrencies: boolean) => {
     async getByCpf(cpf: string): Promise<any> {},
     async count(): Promise<number> {
       return 2;
-    }
+    },
   };
   return {
     ...(hasCurrencies ? withCurrencies() : withoutCurrencies()),
